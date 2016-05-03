@@ -9,9 +9,8 @@ class App {
     public function index(){
 
         $Math = new \App\Libs\Math();
-        $Complex = new Complex();
 
-        return $Math->add($Complex->a, $Complex->b);
+        echo $Math->add(1, 2);
     }
 }
 
