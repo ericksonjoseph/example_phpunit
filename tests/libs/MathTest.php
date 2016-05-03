@@ -1,15 +1,47 @@
 <?php
 
-namespace App;
+namespace App\Libs;
 
 require_once './vendor/autoload.php';
 
 class MathTest extends \PHPUnit_Framework_TestCase {
 
-    public function testAdd()
+    public $out;
+
+    public function setUp()
     {
-        $result = \App\Libs\Math::add(2, 3);
-        $this->assertTrue($result === 5);
+        // Setup a handle for output
+        $this->out = fopen('php://stdout', 'w');
+    }
+
+    /**
+     * testAdd
+     * @dataProvider providerTestAdd
+     *
+     * @access public
+     * @return void
+     */
+    public function testAdd($a, $b, $expected)
+    {
+        $msg = "$a + $b = $expected ?\n\r";
+        fwrite($this->out, $msg);
+
+        $result = \App\Libs\Math::add($a, $b);
+        $this->assertTrue($result === $expected);
+    }
+
+    /**
+     * providerTestAdd
+     *
+     * @access public
+     * @return void
+     */
+    public function providerTestAdd()
+    {
+        return array(
+            [1,2,3],
+            [2,3,5],
+        );
     }
 
 }
